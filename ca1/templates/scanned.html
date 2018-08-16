@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block script %}
+{% endblock %} {% block title %}Scan{% endblock %} {% block content %}
+<div class="hero-body">
+  <div class="container">
+
+    <h1 class="title is-2">Select the expiry date</h1>
+    <div class="columns is-centered is-multiline" id="selection">
+      {% if response|length != 0 %} {% for item in response %}
+      <div class="column">
+        <a href="/addItem/{{item}}" class="button is-primary is-large">
+          <span>{{item}}</span>
+          <span class="icon is-small">
+            <i class="fas fa-angle-right"></i>
+          </span>
+        </a>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="column">
+        <h1 class="is-size-1 has-text-danger">Unable to Detect Expiry Date! Please Try again!</h1>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

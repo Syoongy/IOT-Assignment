@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block title %}Scan{% endblock %} {% block content %}
+<div class="hero-body">
+  <div class="container">
+    <form method="POST">
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Name of item" name="name" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Expiry</label>
+        <div class="control">
+          <input class="input is-success" type="text" placeholder="Text input" name="expiry"
+            value="{{expiry}}" disabled>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <button class="button is-link">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

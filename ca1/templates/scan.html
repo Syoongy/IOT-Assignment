@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block title %}Scan{% endblock %} {% block content %}
+<div class="hero-body">
+  <script>
+    $(document).ready(function() {
+
+      $('#piCam').click(function() {
+        $.post('/detectImgPi')
+          .done(function(data) {
+            $('#submitBtn').prop({
+              disabled: false
+            })
+          })
+      })
+
+      $('input:file').change(function() {
+        console.log('changed');
+        if ($(this).val()) {
+          console.log('changed');
+          $('#submitBtn').prop({
+            disabled: false
+          })
+        }
+      })
+    })
+  </script>
+  <div class="container">
+    <form method=POST enctype=multipart/form-data action="/detectImg">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <div class="file is-primary is-large" style="justify-content:center">
+            <label class="file-label">
+            <input class="file-input" type="file" name="file" value="">
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label">
+                Upload Photo!
+              </span>
+            </span>
+          </label>
+          </div>
+        </div>
+        <div class="column">
+          <a class="button is-success is-large" id="piCam">Use PiCam!</a>
+        </div>
+      </div>
+      <div class="container">
+        <div class="control has-text-centered">
+          <button class="button is-large" id="submitBtn" disabled>Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

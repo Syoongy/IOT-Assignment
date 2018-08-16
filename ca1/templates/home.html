@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% block title %}Home{% endblock %} {% block content %}
+<script>
+  $(document).ready(function() {
+    function getTempData() {
+      $.ajax({
+        url: '/getTempData',
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        success: function(data) {
+          console.log(data)
+          $('#temperature').text(data.result[1])
+        },
+        complete: function(data) {
+          setTimeout(getTempData(), 20000);
+        },
+        error: function(data) {
+          clearInterval(handler)
+        }
+      })
+    }
+    let handler = setInterval(getTempData(), 20000)
+  })
+</script>
+<div class="hero-body">
+  <div class="container">
+    <section class="section">
+      <h1 class="title is-2">
+        Scanned Items
+      </h1>
+      <table class="table is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Expiry Date
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for name, expiry in itemData %}
+          <tr>
+            <td>
+              {{name}}
+            </td>
+            <td>
+              {{expiry}}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+    <section class="section">
+      <h1 class="title is-2">
+        Real-Time Temperature
+      </h1>
+      <div class="box">
+        <h2 class="has-text-primary" id="temperature">Retrieving Temperature</h2>
+      </div>
+    </section>
+    <section class="section column is-three-quarters">
+      <h1 class="title is-2">
+        When the fridge was open
+      </h1>
+      <table class="table is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>
+              Image
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for image in images %}
+          <tr>
+            <td>
+              <figure class="image is-4by3">
+                <img src="static/images/detected/{{image}}">
+              </figure>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>
+{% endblock %}
